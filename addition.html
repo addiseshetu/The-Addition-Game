@@ -5,38 +5,42 @@
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
         <title>The Addition Game</title>
-    </head>
-    <body>
-        <div id="app"></div>
         <style>
             body{
-                background-color: lightblue;
                 text-align: center;
                 align-content: center;
+                background-color: lightgrey;
+            }
+            
+            #problem{
+                font-size: 72px;
+                font-weight: bold;
+                
+            }
+            
+            #score{
+                font-size: 42px;
+                color: blue;
+                font-weight: bold;
+            }
+            #winner{
+                font-size: 72px;
+                color: green;
             }
             .incorrect{
                 color: red;
             }
-            #problem{
-                font-size: 72px;
-                text-align: center;
-            }
-            #winner{
-                font-size: 62px;
-                color: green;
-                font-weight: bold;
-            }
-            #score{
-                font-size: 42x;
-                color: blue;
-            }
         </style>
+    </head>
+    <body>
+        <div id="app"></div>
         <script type="text/babel">
+
         class Winner extends React.Component{
             render(){
                 return(
                     <div id="winner">
-                    <h1>Congrats you win {this.props.name} !!</h1>
+                    You win {this.props.name}!!
                     </div>
                 )
             }
@@ -45,9 +49,9 @@
         class App extends React.Component{
             constructor(props){
                 super(props)
-                this.state = {
+                this.state ={
                     num1 : 1,
-                    num2: 1,
+                    num2 : 1,
                     score : 0,
                     response : "",
                     incorrect : false
@@ -60,23 +64,22 @@
                     return this.renderProblem()
                 }
             }
-            
+
             renderProblem(){
                 return(
                     <div>
-                    <div id="problem" className={this.state.incorrect? "incorrect": ""}>
-                    {this.state.num1} + {this.state.num2}
-                    </div>
-                    <input onKeyPress={this.inputKeyPress}
-                    onChange={this.updateResponse} value={this.state.response} />
-                    <div id="score">
-                    Score : {this.state.score}
-                    </div>
-                    <button onClick={this.resetGame}>Reset</button>
+                        <div id="problem" className={this.state.incorrect ? "incorrect": ""}>
+                        {this.state.num1} + {this.state.num2}
+                        </div>
+                        <input onKeyPress={this.inputKeyPress}
+                        onChange={this.updateResponse} value={this.state.response}/>
+                        <div id="score">
+                        Score : {this.state.score}
+                        </div>
+                        <button onClick={this.resetGame}>Reset</button>
                     </div>
                 )
             }
-
             renderWin(){
                 const name = "The Addition Game"
                 return(
@@ -84,22 +87,22 @@
                 )
             }
 
-            updateResponse = (event)=>{
-                this.setState({response : event.target.value})
+            updateResponse=(event)=> {
+                this.setState({response: event.target.value})
             }
 
-            inputKeyPress = (event)=>{
+            inputKeyPress=(event)=>{
                 if(event.key === "Enter"){
                     const answer = parseInt(this.state.response)
-                    if(answer === this.state.num1 + this.state.num2){
-                        this.setState(state =>({
-                            num1: Math.ceil(Math.random() * 10) + state.score,
+                    if(answer === this.state.num1 + this.state.num2 ){
+                        this.setState(state => ({
+                            num1 : Math.ceil(Math.random() * 10) + state.score,
                             num2 : Math.ceil(Math.random() * 10) + state.score,
                             score : state.score + 1,
                             response : "",
                             incorrect : false
                         }))
-                    } else{
+                    } else {
                         this.setState({
                             response : "",
                             incorrect : true
@@ -108,21 +111,20 @@
                 }
             }
 
-                    resetGame=()=>{
-                        this.setState(state =>({
-                            num1 : 1,
-                            num2: 1,
-                            score : 0,
-                            response : "",
-                            incorrect : false
+            resetGame=()=>{
+                this.setState({
+                    num1 : 1,
+                    num2 : 1,
+                    score : 0,
+                    response : "",
+                    incorrect : false
 
-                        }))
-                    }
-                }
-                
+                })
+            }
             
-        
-        ReactDOM.render(<App />,document.querySelector("#app"))
+        }
+
+        ReactDOM.render(<App />, document.querySelector("#app"))
 
         </script>
     </body>
